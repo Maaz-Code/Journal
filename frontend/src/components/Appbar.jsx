@@ -1,13 +1,9 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { styled, alpha } from '@mui/material/styles';
+import { Menu, MenuList, Divider, InputBase, IconButton, Button, Typography, Toolbar, Box } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,6 +49,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function Appbar() {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="static" sx={
@@ -78,7 +84,32 @@ export default function Appbar() {
           <IconButton size="large" aria-label="search" color="inherit" >
             <SearchIcon sx={{display: {xs:'block', lg:'none'}}} />
           </IconButton>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Pages</Button>
+          <Button color="inherit"
+            id="basic-button"
+            aria-controls="basic-menu"
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick} > Maaz <KeyboardArrowDownIcon/> </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{'aria-labelledby': 'basic-button',}}
+          >
+            <MenuList onClick={handleClose} divider="true">
+              <Typography component="div" color="inherit" sx={{marginLeft: '15px', marginRight: '15px'}}>
+                Profile
+              </Typography>            
+            </MenuList>
+            <Divider sx={{ my: 0.5 }} />
+            <MenuList onClick={handleClose}>
+              <Typography component="div" color="inherit" sx={{marginLeft: '15px', marginRight: '15px'}}>
+                Logout
+              </Typography> 
+            </MenuList>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>
