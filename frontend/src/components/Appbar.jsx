@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { styled, alpha } from '@mui/material/styles';
-import { Menu, MenuList, Divider, InputBase, IconButton, Button, Typography, Toolbar, Box } from '@mui/material';
+import { Menu, MenuList, Divider, InputBase, Button, Typography, Toolbar, Box, Link } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -69,22 +69,21 @@ export default function Appbar() {
         }
       }>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2, display: {xs:'none', sm:'block'} }}>
-            Journal
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2 }}>
+            <Link color="inherit" underline="none" href="/">Journal</Link>
           </Typography>
-          <Search sx={{mr: 2, display: {xs:'none', sm:'block'}}}>
+          <Search sx={{mr: 4, ml: 3}}>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon/>
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <IconButton size="large" aria-label="search" color="inherit" >
-            <SearchIcon sx={{display: {xs:'block', lg:'none'}}} />
-          </IconButton>
-          <Button color="inherit">Pages</Button>
+          <Link underline="none" color="inherit" href="/pages">
+            <Button color="inherit">Pages</Button>
+          </Link>
           <Button color="inherit"
             id="basic-button"
             aria-controls="basic-menu"
