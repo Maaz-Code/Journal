@@ -1,15 +1,7 @@
 import React from 'react'
-import { Grid, Button, styled } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import Stack from '@mui/material/Stack';
-
-const CustomButton = styled(Button)(() => ({
-    color: '#e9e9e9',
-    backgroundColor: '#30343a',
-    '&:hover': {
-      backgroundColor: '#282b31',
-    },
-    borderRadius: '7px',
-  }));
+import CustomButton from './CustomButton'
 
 const Home = () => {
     return (

@@ -1,0 +1,9 @@
+@media (max-width: 650px) {
+    .heading {
+        font-size: 30px;
+    }
+}
+
+.top {
+    margin-top: 20px;
+}
