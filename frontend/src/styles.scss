@@ -25,3 +25,12 @@ body {
         margin-top: 0.3em;
     }
 }
+
+.main {
+    margin-top: 20px;
+    @media (max-width: 650px) {
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+}

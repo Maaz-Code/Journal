@@ -1,6 +1,5 @@
 import { Container, Typography } from '@material-ui/core'
 import React from 'react'
-import "./Main.scss"
 
 function Main({ title, children }) {
     return (

@@ -4,14 +4,14 @@ import Main from '../screens/Main'
 import CustomButton from './CustomButton'
 import Add from '@mui/icons-material/Add';
 import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded';
-import { IconButton, Card, CardActions, CardContent, CardHeader, Typography, Collapse, Link, Stack } from '@mui/material';
+import { IconButton, Card, CardActions, CardContent, CardHeader, Collapse, Link, Stack, Typography } from '@mui/material';
 import content from "../data/content";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />; })
     (({ theme, expand }) => ({
-        transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+        transform: expand ? 'rotate(0deg)' : 'rotate(180deg)',
         marginLeft: 'auto',
         transition: theme.transitions.create('transform', {
         duration: theme.transitions.duration.shortest, }),
@@ -24,44 +24,41 @@ const ExpandMore = styled((props) => {
     }
 
     const Pages = () => {
-      const [expanded, setExpanded] = React.useState(false);
-      const handleExpandClick = () => {
-        setExpanded(!expanded);
+      const [expanded, setExpanded] = React.useState(-1);
+      const handleExpandClick = (i) => {
+        setExpanded(expanded === i ? -1 : i);
       };
     return (
-        <Main title="Welcome Maaz Ahmed ...">
+      <Main title="Welcome Maaz Ahmed ...">
         <Link href="/addpage" underline="none">
           <CustomButton style={{ marginTop: 20 }} endIcon={<Add />}>New Page</CustomButton>
         </Link>
         { 
-          content.map((page) => (
-            <Card sx={{ marginTop: 5, backgroundColor: 'ivory', border: '1px solid black', boxShadow: 4 }}>
+      content.map((page) => (
+        <Card key={page._id} sx={{ marginTop: 5, backgroundColor: 'ivory', border: '1px solid black', boxShadow: 4 }}>
           <CardHeader action={<Stack direction={{ xs: 'column', sm: 'row' }} spacing={5}>
             <CustomButton variant="contained" size="small" href={`/pages/${page._id}`}>Edit</CustomButton>
             <CustomButton variant="contained" size="small" onClick={() => deleteHandler(page._id)}>Delete</CustomButton>
           </Stack>} title={page.title} subheader={page.date} />
-          <CardContent>
-            <Typography variant="body2">
-              {/* TODO: Add content here */}
-            </Typography>
-          </CardContent>
           <CardActions disableSpacing>
             <ExpandMore
               expand={expanded}
-              onClick={handleExpandClick}
+              onClick={() => handleExpandClick(page._id)}
               aria-expanded={expanded}
               aria-label="show more"
             >
               <ExpandMoreRounded />
             </ExpandMore>
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>{/* TODO: Add content here */}</CardContent>
+          <Collapse in={expanded === page._id} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography variant="body2">{page.content}</Typography>
+            </CardContent>
           </Collapse>
         </Card>
           ))
         }
-        </Main>
+      </Main>
     )
 }
 
