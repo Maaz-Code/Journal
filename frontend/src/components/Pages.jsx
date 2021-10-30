@@ -6,6 +6,7 @@ import Add from '@mui/icons-material/Add';
 import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded';
 import { IconButton, Card, CardActions, CardContent, CardHeader, Collapse, Link, Stack, Typography } from '@mui/material';
 import content from "../data/content";
+import axios from 'axios';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -22,6 +23,16 @@ const ExpandMore = styled((props) => {
         console.log(id)
       };
     }
+
+    const fetchPages = async () => {
+      const pages = await axios.get('/pages');
+      console.log(pages);
+    }
+
+    fetchPages();
+    // useEffect(() => {
+    //   fetchPages();
+    // }, []);
 
     const Pages = () => {
       const [expanded, setExpanded] = React.useState(-1);
