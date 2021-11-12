@@ -5,7 +5,6 @@ import CustomButton from './CustomButton'
 import Add from '@mui/icons-material/Add';
 import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded';
 import { IconButton, Card, CardActions, CardContent, CardHeader, Collapse, Link, Stack, Typography } from '@mui/material';
-import content from "../data/content";
 import axios from 'axios';
 
 const ExpandMore = styled((props) => {
@@ -18,34 +17,36 @@ const ExpandMore = styled((props) => {
         duration: theme.transitions.duration.shortest, }),
     }));
 
-    const deleteHandler = (id) => {
-      if(window.confirm(`Are you sure you want to delete this?`)){
-        console.log(id)
-      };
-    }
-
-    const fetchPages = async () => {
-      const pages = await axios.get('/pages');
-      console.log(pages);
-    }
-
-    fetchPages();
-    // useEffect(() => {
-    //   fetchPages();
-    // }, []);
-
     const Pages = () => {
+      const [pages, setPages] = React.useState([]);
       const [expanded, setExpanded] = React.useState(-1);
       const handleExpandClick = (i) => {
         setExpanded(expanded === i ? -1 : i);
       };
+
+      const deleteHandler = (id) => {
+        if(window.confirm(`Are you sure you want to delete this?`)){
+          console.log(id)
+        };
+      }
+  
+      const fetchPages = async () => {
+        const {data} = await axios.get('/pages');
+        setPages(data);
+      }
+
+      console.log(pages)
+      React.useEffect(() => {
+        fetchPages();
+      }, []);
+
     return (
       <Main title="Welcome Maaz Ahmed ...">
         <Link href="/addpage" underline="none">
           <CustomButton style={{ marginTop: 20 }} endIcon={<Add />}>New Page</CustomButton>
         </Link>
         { 
-      content.map((page) => (
+      pages.map((page) => (
         <Card key={page._id} sx={{ marginTop: 5, backgroundColor: 'ivory', border: '1px solid black', boxShadow: 4 }}>
           <CardHeader action={<Stack direction={{ xs: 'column', sm: 'row' }} spacing={5}>
             <CustomButton variant="contained" size="small" href={`/pages/${page._id}`}>Edit</CustomButton>
