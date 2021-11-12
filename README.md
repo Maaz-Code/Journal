@@ -1,3 +1,5 @@
 # Journal
 
-a MERN stack project to keep track of your daily journal entries. (Under development!)
+#### A MERN stack project to write your daily and unique Journal entries.
+- Frontend: ReactJs, Material UI, and SCSS.
+- Backend: NodeJS and MongoDB.
