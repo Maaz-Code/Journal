@@ -5,6 +5,7 @@ const app = express();
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 
+app.use(express.json());
 app.get("/", (req, res) => {
     res.send('Server is running...');
 });
@@ -27,7 +28,6 @@ app.use('/api/users', userRoutes);
 
 dotenv.config();
 connectDB();
-app.use(express.json());
 const port = process.env.PORT || 5000;
 
 app.listen(port,console.log(`Server started on Port ${port}`));
